@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { Store } from '../store'
+
 
 @Component({
     selector: 'confirmation-container',
     styles: [`
-        .notes {
+        .confirmation {
             padding-top: 50px;
         }
         .creator {
@@ -12,17 +12,11 @@ import { Store } from '../store'
         }
     `],
     template: `
-        <div class="row center-xs notes">
+        <div class="row center-xs confirmation shadow-2">
           Welcome {{Name}}
             <button class="btn-light">go to registration</button>
         </div>
     `
 })
-export class Confirmation {
-
-    constructor(
-        private store: Store
-    ) {}
-
-};
+export class Confirmation {};
 
