@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
     styles: [`
         .confirmation {
             width: 80%;
+            max-width: 650px;
             border-radius: 2px;
             background-color: white;
             padding: 20px;

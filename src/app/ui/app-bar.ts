@@ -5,10 +5,11 @@ import { Router } from '@angular/router';
     selector: 'app-bar',
     styles: [
         `.app-bar {
-            height: 65px;
+            height: 90px;
             padding: 5px 30px;
             background-color: white;
             width: 80%;
+            max-width: 650px;
             margin: 0 auto;
             position: relative;
         }
@@ -20,9 +21,14 @@ import { Router } from '@angular/router';
         .link {
             font-size: 16px;
             border: 1px solid #ccc;
-            padding: 10px;
+            padding: .3em;
+            margin-bottom: .5em;
             font-weight: 400;
             cursor: pointer;
+            border-radius: 3px;
+        }
+        .rb-hide {
+            display: none;
         }
         .link:hover {
             background-color: #ccc;
@@ -38,8 +44,10 @@ import { Router } from '@angular/router';
             </span>
             <nav class="col-xs-2">
                 <div class="row middle-xs between-xs">
-                    <span class="link" (click)="changeLanguage()">En</span>
-                    <span class="link" (click)="changeLanguage()">Ru</span>
+                    <label for="en" class="link">EN</label>
+                    <input type="radio" value="EN" class="rb-hide" [(ngModel)]="lang" name="lang" id="en" (change)="onChangeFn()">
+                    <label for="ru" class="link">RU</label>
+                    <input type="radio" value="RU" class="rb-hide" [(ngModel)]="lang" name="lang" id="ru" (change)="onChangeFn()">
                 </div>
             </nav>
         </header>
@@ -48,4 +56,8 @@ import { Router } from '@angular/router';
 
 export class AppBar {
     constructor(private router: Router){}
+    lang:string = 'EN';
+    onChangeFn() {
+        console.log(this.lang);
+    }
 }

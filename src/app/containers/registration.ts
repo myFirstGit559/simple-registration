@@ -16,6 +16,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
     }
     form {
       width: 80%;
+      max-width: 650px;
       border-radius: 2px;
       background-color: white;
       padding: 20px;
