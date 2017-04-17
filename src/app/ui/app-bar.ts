@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-bar',
@@ -29,8 +30,11 @@ import { Component } from '@angular/core';
     ],
     template: `
         <header class="app-bar shadow-2 row middle-xs">
-            <span class="logo col-xs-10">
-                {{pgName}}
+            <span class="logo col-xs-10" *ngIf="router.url == '/'">
+                Registration
+            </span>
+            <span class="logo col-xs-10" *ngIf="router.url.indexOf('confirmation') != -1">
+                Confirmation
             </span>
             <nav class="col-xs-2">
                 <div class="row middle-xs between-xs">
@@ -43,8 +47,5 @@ import { Component } from '@angular/core';
 })
 
 export class AppBar {
-    changeLanguage(){
-
-    }
-    pgName: string = 'Registration';
+    constructor(private router: Router){}
 }

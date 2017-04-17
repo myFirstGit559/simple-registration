@@ -1,11 +1,15 @@
-import { Component } from '@angular/core';
-
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'confirmation-container',
     styles: [`
         .confirmation {
-            padding-top: 50px;
+            width: 80%;
+            border-radius: 2px;
+            background-color: white;
+            padding: 20px;
+            margin: 0 auto;
         }
         .creator {
             margin-bottom: 40px;
@@ -13,10 +17,20 @@ import { Component } from '@angular/core';
     `],
     template: `
         <div class="row center-xs confirmation shadow-2">
-          Welcome {{Name}}
-            <button class="btn-light">go to registration</button>
+          Welcome {{name}}
+            <div class="actions col-xs-12">
+                <div class="row center-xs">
+                    <button class="btn-light" [routerLink]="['']">go to registration</button>
+                </div>
+            </div>
         </div>
     `
 })
-export class Confirmation {};
+export class Confirmation implements OnInit {
+    constructor(private route: ActivatedRoute){}
+    name:string = '';
+    ngOnInit() {
+        this.name = this.route.snapshot.params['name'];
+    }
+};
 

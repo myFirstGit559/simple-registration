@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { App } from './app/app';
 import { routes } from './app/routes'
@@ -21,7 +20,6 @@ import {
     imports: [
         BrowserModule,
         FormsModule,
-        HttpModule,
         ReactiveFormsModule,
         routes
     ],

@@ -189,11 +189,11 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class Registration implements OnInit {
     public regForm: FormGroup;
     user = {
-        name: '',
-        login: '',
-        email:'',
-        password: '',
-        repPswd: ''
+        name: 'tanya',
+        login: 'tanya',
+        email:'Tanya@gg.tt',
+        password: '123456789',
+        repPswd: '123456789'
     };
     ngOnInit() {
         this.regForm = this._fb.group(this.user);
@@ -209,7 +209,7 @@ export class Registration implements OnInit {
            this.confirm = !isValid;
        } else {
            this.confirm = false;
-           this.router.navigate(['','confirmation']);
+           this.router.navigate(['','confirmation',this.user.name]);
        }
     }
 }

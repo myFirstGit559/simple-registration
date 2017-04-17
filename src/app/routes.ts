@@ -8,8 +8,8 @@ export const routes: ModuleWithProviders =  RouterModule.forRoot([
         component: Main,
         children: [
             {path: '', component: Registration},
+            {path: 'confirmation/:name', component: Confirmation}
         ]
     },
-    {path: 'confirmation', component: Confirmation},
     {path: '**', redirectTo: ''}
 ]);
