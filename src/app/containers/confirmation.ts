@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { LangService } from '../services';
 
 @Component({
     selector: 'confirmation-container',
@@ -18,20 +19,29 @@ import { ActivatedRoute } from '@angular/router';
     `],
     template: `
         <div class="row center-xs confirmation shadow-2">
-          Welcome {{name}}
+          {{words.Welcome}} {{name}}
             <div class="actions col-xs-12">
                 <div class="row center-xs">
-                    <button class="btn-light" [routerLink]="['']">go to registration</button>
+                    <button class="btn-light" [routerLink]="['']">{{words.GoTo}}</button>
                 </div>
             </div>
         </div>
     `
 })
 export class Confirmation implements OnInit {
-    constructor(private route: ActivatedRoute){}
+    constructor(
+        private route: ActivatedRoute,
+        private langService: LangService
+    ){}
     name:string = '';
+    words:object = {};
     ngOnInit() {
         this.name = this.route.snapshot.params['name'];
+        this.langService.getLangJson()
+            .subscribe(data => {
+                console.log(data);
+                this.words = data;
+            });
     }
 };
 

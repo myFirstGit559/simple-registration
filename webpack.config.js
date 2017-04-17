@@ -7,7 +7,9 @@ var config = {
   entry: {
     polyfills: './src/polyfills',
     vendor:    './src/vendor',
-    main:      './src/main'
+    main:      './src/main',
+    en: './src/app/lang/en.json',
+    ru: './src/app/lang/ru.json'
   },
 
   output: {
@@ -19,19 +21,18 @@ var config = {
   module: {
     loaders: [
       { test: /\.ts$/,   loader: 'awesome-typescript-loader' },
-      { test: /\.json$/, loader: 'json-loader' },
+      { test: /\.json$/, loader: 'file-loader?name=[name].json' },
       { test: /\.html/,  loader: 'raw-loader' },
       { test: /\.css$/,  loader: 'to-string-loader!css-loader' }
     ]
   },
 
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin({ name: ['polyfills', 'vendor', 'main'].reverse(), minChunks: Infinity })
+    new webpack.optimize.CommonsChunkPlugin({ name: ['polyfills', 'vendor', 'main', 'en', 'ru'].reverse(), minChunks: Infinity })
   ],
 
   resolve: {
-    extensions: ['', '.ts', '.js', '.json'],
-
+    extensions: ['', '.ts', '.js', '.json']
   },
 
   devServer: {

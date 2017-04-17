@@ -1,0 +1,20 @@
+{
+  "Reg": "Registration",
+  "Conf": "Confirmation",
+  "Ru": "RU",
+  "En": "EN",
+  "Name": "Name",
+  "Login": "Login",
+  "Email": "Email",
+  "Password": "Password",
+  "RepeatPassword": "Repeat Password",
+  "GoTo": "go to registration",
+  "Next": "Next",
+  "Welcome": "Welcome",
+  "ErrName": "name field can't be empty",
+  "ErrLogin": "login field can't be empty",
+  "ErrEmailEmpty": "email field can't be empty",
+  "ErrEmailValid": "email field is invalid",
+  "ErrPassword": "password field can't be empty",
+  "ErrPasswordConfirmation": "password doesn't match the confirmation"
+}

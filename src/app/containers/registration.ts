@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { LangService } from '../services';
 
 @Component({
     selector: 'registration-container',
@@ -67,7 +68,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   <form class="shadow-2" [formGroup]="regForm" (ngSubmit)="register(regForm.valid)" novalidate>
     <div class="inputs row center-xs middle-xs">
         <div>
-            <label for="name" class="col-xs-8">Name</label>
+            <label for="name" class="col-xs-8">{{words.Name}}</label>
             <input
                     class="col-xs-8"
                     type="text"
@@ -81,11 +82,11 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
             <div *ngIf="confirm"
                     [hidden]="regForm.controls.name.valid"
                     class="error col-xs-8">
-                name field can't be empty
+                {{words.ErrName}}
             </div>
         </div>
         <div>
-            <label for="login" class="col-xs-8">Login</label>
+            <label for="login" class="col-xs-8">{{words.Login}}</label>
             <input
                     class="col-xs-8"
                     type="text"
@@ -99,11 +100,11 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
             <div *ngIf="confirm"
                     [hidden]="regForm.controls.login.valid"
                     class="error col-xs-8">
-                login field can't be empty
+                {{words.ErrLogin}}
             </div>
         </div>
         <div>
-            <label for="email" class="col-xs-8">Email</label>
+            <label for="email" class="col-xs-8">{{words.Email}}</label>
             <input
                     class="col-xs-8"
                     type="email"
@@ -118,16 +119,16 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
             <div *ngIf="confirm"
                  [hidden]="regForm.controls.email.valid"
                  class="error col-xs-8">
-                email field can't be empty
+                {{words.ErrEmailEmpty}}
             </div>
             <div *ngIf="confirm"
                     [hidden]="regForm.controls.email.valid || regForm.controls.email.pristine"
                     class="error col-xs-8">
-                email field is invalid
+                {{words.ErrEmailValid}}
             </div>
         </div>
         <div>
-            <label for="password" class="col-xs-8">Password</label>
+            <label for="password" class="col-xs-8">{{words.Password}}</label>
             <input
                     class="col-xs-8"
                     type="password"
@@ -142,16 +143,11 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
             <div *ngIf="confirm"
                     [hidden]="regForm.controls.password.valid"
                     class="error col-xs-8">
-                password field can't be empty
-            </div>
-            <div *ngIf="confirm"
-                    [hidden]="!regForm.controls.password.minlength"
-                    class="error col-xs-8">
-                password must be at least 4 characters long
+                {{words.ErrPassword}}
             </div>
         </div>
         <div>
-            <label for="repPswd" class="col-xs-8">Repeat Password</label>
+            <label for="repPswd" class="col-xs-8">{{words.RepeatPassword}}</label>
             <input
                     class="col-xs-8"
                     type="password"
@@ -166,18 +162,18 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
             <div *ngIf="confirm"
                     [hidden]="regForm.controls.repPswd.valid"
                     class="error col-xs-8">
-                repeat password field can't be empty
+                {{words.ErrPassword}}
             </div>
             <div *ngIf="confirm"
                     [hidden]="user.password === user.repPswd"
                     class="error col-xs-8">
-                Password doesn't match the confirmation
+                {{words.ErrPasswordConfirmation}}
             </div>
         </div>
       <div class="actions col-xs-12">
         <div class="row center-xs">
           <button type="submit" class="btn-light">
-            Next
+            {{words.Next}}
           </button>
         </div>
       </div>
@@ -196,13 +192,20 @@ export class Registration implements OnInit {
         password: '123456789',
         repPswd: '123456789'
     };
+    words:object = {};
     ngOnInit() {
         this.regForm = this._fb.group(this.user);
+        this.langService.getLangJson()
+            .subscribe(data => {
+                console.log(data);
+                this.words = data;
+            });
     }
     confirm:boolean = false;
     constructor(
         private router: Router,
-        private _fb: FormBuilder
+        private _fb: FormBuilder,
+        private langService: LangService
     ){}
 
     register(isValid: boolean) {

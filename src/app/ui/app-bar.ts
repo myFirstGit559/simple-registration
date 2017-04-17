@@ -1,5 +1,6 @@
-import { Component, OnInit, DoCheck } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { LangService } from '../services';
 
 @Component({
     selector: 'app-bar',
@@ -30,6 +31,9 @@ import { Router } from '@angular/router';
         .rb-hide {
             display: none;
         }
+        .rb-hide:checked + .link {
+            background-color: #ccc;
+        }
         .link:hover {
             background-color: #ccc;
         }`
@@ -37,27 +41,45 @@ import { Router } from '@angular/router';
     template: `
         <header class="app-bar shadow-2 row middle-xs">
             <span class="logo col-xs-10" *ngIf="router.url == '/'">
-                Registration
+                {{words.Reg}}
             </span>
             <span class="logo col-xs-10" *ngIf="router.url.indexOf('confirmation') != -1">
-                Confirmation
+                {{words.Conf}}
             </span>
             <nav class="col-xs-2">
                 <div class="row middle-xs between-xs">
-                    <label for="en" class="link">EN</label>
-                    <input type="radio" value="EN" class="rb-hide" [(ngModel)]="lang" name="lang" id="en" (change)="onChangeFn()">
-                    <label for="ru" class="link">RU</label>
-                    <input type="radio" value="RU" class="rb-hide" [(ngModel)]="lang" name="lang" id="ru" (change)="onChangeFn()">
+                    <input type="radio" value="en" class="rb-hide" [(ngModel)]="lang" name="lang" id="en" (change)="onChangeFn()">
+                    <label for="en" class="link">{{words.En}}</label>
+                    <input type="radio" value="ru" class="rb-hide" [(ngModel)]="lang" name="lang" id="ru" (change)="onChangeFn()">
+                    <label for="ru" class="link">{{words.Ru}}</label>
                 </div>
             </nav>
         </header>
     `
 })
 
-export class AppBar {
-    constructor(private router: Router){}
-    lang:string = 'EN';
+export class AppBar implements OnInit {
+    constructor(
+        private router: Router,
+        private langService: LangService
+    ){}
+    lang:string = 'en';
+    words: object = {};
+    ngOnInit() {
+        this.langService.setLang(this.lang);
+        this.langService.getLangJson()
+            .subscribe(data => {
+                console.log(data);
+                this.words = data;
+            });
+    }
     onChangeFn() {
         console.log(this.lang);
+        this.langService.setLang(this.lang);
+        this.langService.getLangJson()
+            .subscribe(data => {
+                console.log(data);
+                this.words = data;
+            });
     }
 }
