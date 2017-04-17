@@ -4,11 +4,18 @@ import { Component } from '@angular/core';
     selector: 'main-container',
     template: `
         <div class="main-container">
-            <app-bar></app-bar>
+            <app-bar
+               (changeData)="onChangeFn($event)"
+            ></app-bar>
             <main class="main">
                 <router-outlet></router-outlet>
             </main>
         </div>
     `
 })
-export class Main {}
+export class Main {
+    words:object = {};
+    onChangeFn(event){
+        this.words = event;
+    }
+}

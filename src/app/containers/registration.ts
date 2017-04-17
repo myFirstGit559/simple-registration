@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LangService } from '../services';
@@ -202,12 +202,12 @@ export class Registration implements OnInit {
             });
     }
     confirm:boolean = false;
+    check:object = null;
     constructor(
         private router: Router,
         private _fb: FormBuilder,
         private langService: LangService
     ){}
-
     register(isValid: boolean) {
        if(!isValid){
            this.confirm = !isValid;

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { LangService } from '../services';
 
@@ -63,8 +63,12 @@ export class AppBar implements OnInit {
         private router: Router,
         private langService: LangService
     ){}
+    @Input()
     lang:string = 'en';
+    @Input()
     words: object = {};
+    @Output()
+    changeData: EventEmitter<any> = new EventEmitter<any>();
     ngOnInit() {
         this.langService.setLang(this.lang);
         this.langService.getLangJson()
@@ -74,12 +78,11 @@ export class AppBar implements OnInit {
             });
     }
     onChangeFn() {
-        console.log(this.lang);
         this.langService.setLang(this.lang);
         this.langService.getLangJson()
             .subscribe(data => {
-                console.log(data);
                 this.words = data;
+                this.changeData.emit(this.words);
             });
     }
 }
