@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LangService } from '../services';
 
@@ -37,11 +37,8 @@ export class Confirmation implements OnInit {
     words:object = {};
     ngOnInit() {
         this.name = this.route.snapshot.params['name'];
-        this.langService.getLangJson()
-            .subscribe(data => {
-                console.log(data);
-                this.words = data;
-            });
+        this.langService.getLangJson().subscribe();
+        this.langService.changeData.subscribe(data => this.words = data);
     }
 };
 

@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "webpack --config webpack.spec.ts --progress --color && karma start",
-    "start": "webpack-dev-server --inline --colors --progress --display-error-details --display-cached --port 3333  --content-base src"
+    "prestart": "npm install",
+    "start": "webpack && webpack-dev-server --inline --colors --progress --display-error-details --display-cached --port 3333  --content-base src"
   },
   "author": "Agisheva T",
   "license": "ISC",

@@ -1,4 +1,4 @@
-import { Component, OnInit, DoCheck } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LangService } from '../services';
@@ -186,28 +186,25 @@ import { LangService } from '../services';
 export class Registration implements OnInit {
     public regForm: FormGroup;
     user = {
-        name: 'tanya',
-        login: 'tanya',
-        email:'Tanya@gg.tt',
-        password: '123456789',
-        repPswd: '123456789'
+        name: '',
+        login: '',
+        email: '',
+        password: '',
+        repPswd: ''
     };
     words:object = {};
     ngOnInit() {
         this.regForm = this._fb.group(this.user);
-        this.langService.getLangJson()
-            .subscribe(data => {
-                console.log(data);
-                this.words = data;
-            });
+        this.langService.getLangJson().subscribe();
+        this.langService.changeData.subscribe(data => this.words = data);
     }
     confirm:boolean = false;
-    check:object = null;
     constructor(
         private router: Router,
         private _fb: FormBuilder,
         private langService: LangService
     ){}
+
     register(isValid: boolean) {
        if(!isValid){
            this.confirm = !isValid;

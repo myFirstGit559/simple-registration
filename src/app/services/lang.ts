@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Output, EventEmitter } from '@angular/core';
 import { Headers, Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
@@ -10,15 +10,21 @@ export class LangService {
         private http: Http
     ){}
     _lang: string = null;
-
+    @Output()changeData: EventEmitter<any> = new EventEmitter();
     setLang(lang: string){
         this._lang = lang;
     }
     getLangJson():Observable<any>{
             if(!isNull(this._lang)){
                 return this.http.get(`/${this._lang}.json`)
-                    .map(res => res.json())
+                    .map(res => {
+                        res.json();
+                        this.changeData.emit(res.json());
+                    })
                     .catch(error => Observable.throw(error.json().error || 'Server error'));
             }
     }
+
+
+
 }
